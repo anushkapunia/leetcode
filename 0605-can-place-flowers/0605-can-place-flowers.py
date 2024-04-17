@@ -8,7 +8,6 @@ class Solution(object):
                 if left and right:
                     fb[i] = 1
                     count+=1
-                if count>=n:
-                    return True
+                
                 
         return count>=n
