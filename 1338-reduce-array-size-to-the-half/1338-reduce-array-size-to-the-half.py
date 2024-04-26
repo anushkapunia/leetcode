@@ -1,18 +1,18 @@
 class Solution(object):
     def minSetSize(self, arr):
-        d = {}
-        for i in arr:
-            d[i]= d.get(i,0)+1
-            
-        s = sorted(d.values(),reverse= True)
-        total = len(arr)
-        remove = 0
-        minset= 0
-        for v in s:
-            remove+=v
-            minset+=1
-            if remove>=total//2:
-                break
-        return minset        
-            
-            
+        n = len(arr)
+        cnt = Counter(arr)
+
+        counting = [0] * (n + 1)
+        for freq in cnt.values():
+            counting[freq] += 1
+
+        ans, removed, half, freq = 0, 0, n // 2, n
+        while removed < half:
+            ans += 1
+            while counting[freq] == 0: freq -= 1
+            removed += freq
+            counting[freq] -= 1
+        return ans
+        
+        
