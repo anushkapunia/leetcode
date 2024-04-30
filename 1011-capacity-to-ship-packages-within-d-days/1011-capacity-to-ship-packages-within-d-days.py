@@ -1,20 +1,17 @@
 class Solution(object):
-    def shipWithinDays(self, weights, D):
-        left, right = max(weights), sum(weights)
-        while left < right:
-            mid, need, cur = (left + right) // 2, 1, 0
+    def shipWithinDays(self, weights, days):
+        l , r = max(weights), sum(weights)
+        while l < r:
+            mid = (l + r) // 2
+            n = 1
+            c = 0
             for w in weights:
-                if cur + w > mid:
-                    need += 1
-                    cur = 0
-                cur += w
-            if need > D: left = mid + 1
-            else: right = mid
-        return left
-        
-        
-        
-        
-                
-                
-        
+                if c + w > mid:
+                    n += 1
+                    c = 0
+                c += w
+            if n > days:
+                l = mid + 1
+            else:
+                r = mid
+        return l
