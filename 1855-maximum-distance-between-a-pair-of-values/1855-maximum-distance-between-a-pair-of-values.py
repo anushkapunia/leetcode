@@ -1,16 +1,23 @@
-class Solution(object):
+class Solution:
     def maxDistance(self, nums1, nums2):
-        
-    
-        n1, n2 = len(nums1), len(nums2)
-        i, j = 0, 0
-        max_dist = 0
-
-        while i < n1 and j < n2:
-            if nums1[i] <= nums2[j]:
-                max_dist = max(max_dist, j - i)
-                j += 1
+        def binary(left, right, num):
+            farthestPos = 0
+            while left < right:
+                mid = (left + right) // 2
+                if nums2[mid] < num:
+                    right = mid
+                else:
+                    farthestPos = max(farthestPos, mid)
+                    left = mid + 1
+            if nums2[left] >= num:
+                farthestPos = max(farthestPos, left)
+            return farthestPos
+        maxDiff = 0
+        for i in range(min(len(nums1), len(nums2))):
+            if nums1[i] > nums2[i]:
+                continue
             else:
-                i += 1
-
-        return max_dist
+                j = binary(i, len(nums2)-1, nums1[i])
+                maxDiff = max(maxDiff, (j-i))
+        return maxDiff
+        
