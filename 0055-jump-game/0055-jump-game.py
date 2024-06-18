@@ -1,11 +1,12 @@
 class Solution:
     def canJump(self, nums):
-        gas = 0
-        for n in nums:
-            if gas < 0:
+        n = len(nums)
+        max_reach = 0
+
+        for i in range(n):
+            if i > max_reach:
                 return False
-            elif n > gas:
-                gas = n
-            gas -= 1
-            
+            max_reach = max(max_reach, i + nums[i])
+
         return True
+        
