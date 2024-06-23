@@ -1,20 +1,14 @@
 class Solution(object):
     def findKthLargest(self, nums, k):
-         heap = []
+        
+        heap = []
     
-         for num in nums:
+        for num in nums:
+            heapq.heappush(heap, num)
             
-        # If the heap size is less than k, just add the element
-            if len(heap) < k:
-                
-                heapq.heappush(heap, num)
-        # If the current number is greater than the smallest in the heap,
-        # remove the smallest and add the current number
-            elif num > heap[0]:
+            if len(heap) > k:
                 heapq.heappop(heap)
-                heapq.heappush(heap, num)
-    
-    # The root of the heap will be the kth largest element
-         return heap[0]
-    
+                
+        return heap[0]       
+                
         
