@@ -1,36 +1,16 @@
-class Solution:
-    def leastInterval(self, tasks, n): 
-        f = [0]*26
-        for t in tasks:
-            f[ord(t)- ord('A')]+=1
-            
-        pq = [-fr for fr in f if fr>0]
+class Solution(object):
+    def leastInterval(self, tasks, n):
+      
+        task_counts = [0] * 26
+        for task in tasks:
+            task_counts[ord(task) - ord('A')] += 1
         
-        heapq.heapify(pq)
-        time = 0
-        while pq:
-            cycle = n+1
-            task = 0
-            s=[]
-            while cycle> 0 and pq:
-                cf = - (heapq.heappop(pq))
-                if cf >1:
-                    s.append(-(cf-1))
-                    
-                task+=1
-                cycle-=1
-            for f in s:
-                heapq.heappush(pq,f)
+        # Find the maximum frequency
+        max_freq = max(task_counts)
         
-                
-            time+= task if not pq else n+1
-            
-        return time    
-            
-
-
-            
-            
-            
-            
-            
+        # Count how many tasks have the maximum frequency
+        max_count = task_counts.count(max_freq)
+        
+        # Calculate the minimum number of intervals required
+        return max(len(tasks), (max_freq - 1) * (n + 1) + max_count)
+        
