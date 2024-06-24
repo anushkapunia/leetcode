@@ -1,18 +1,21 @@
 class Solution(object):
     def findClosestElements(self, arr, k, x):
-     
-        left = 0
-        right = len(arr) - k
-    
-        # Двоичный поиск для определения начальной позиции окна из k элементов
-        while left < right:
-            mid = left + (right - left) // 2
-            # Сравниваем расстояние от середины текущего окна до x
-            # с расстоянием от середины следующего (mid + k) окна до x
-            if x - arr[mid] > arr[mid + k] - x:
-                left = mid + 1  # Сдвигаем левую границу вправо
-            else:
-                right = mid  # Сдвигаем правую границу влево
+       
+        heap = []
         
-        # Возвращаем k ближайших элементов, начиная с позиции left
-        return arr[left:left + k]
+        for num in arr:
+            diff = abs(num - x)
+            
+            # If the heap size is less than k, add the current element
+            if len(heap) < k:
+                heapq.heappush(heap, (-diff, -num))
+            else:
+                # If the current element is closer than the farthest element in the heap
+                if diff < -heap[0][0] or (diff == -heap[0][0] and num < -heap[0][1]):
+                    heapq.heappop(heap)
+                    heapq.heappush(heap, (-diff, -num))
+        
+        # Extract the numbers from the heap and sort them
+        result = sorted(-num for _, num in heap)
+        return result
+        
