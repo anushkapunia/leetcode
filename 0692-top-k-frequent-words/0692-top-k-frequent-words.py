@@ -1,11 +1,14 @@
 class Solution(object):
     def topKFrequent(self, words, k):
-        word_counts = Counter(words)
-    
-    # Sort the words based on frequency (descending) and lexicographical order
-        sorted_words = sorted(word_counts, key=lambda x: (-word_counts[x], x))
-    
-    # Return the top k words
-        return sorted_words[:k]
-        
+ 
+        cnt=defaultdict(lambda :[0,""])
+        for i in words:
+            cnt[i]=[cnt[i][0]-1,i]
+        lst=list(cnt.values())
+        heapq.heapify(lst)
+        lst=heapq.nsmallest(k,lst)
+        ans=[]
+        for i in lst:
+            ans.append(i[1])
+        return ans
         
