@@ -6,12 +6,12 @@ class Solution(object):
         
         h = []
         for x, y in points:
-            dist = math.sqrt(x**2 + y**2)
+            dist = sqrt(x**2 + y**2)
             heapq.heappush(h, (dist, (x, y)))
         
         r = []
-        while k > 0 and h:
-            _, p = heapq.heappop(h)
+        while k > 0 :
+            s, p = heapq.heappop(h)
             r.append(list(p))
             k -= 1
         
