@@ -1,30 +1,35 @@
 class Solution(object):
     def rearrangeBarcodes(self, barcodes):
 
+        n = len(barcodes)
+        if n < 2:
+            return barcodes
+
+        # Count the frequency of each barcode
         count = Counter(barcodes)
         
-        # Create a max heap of (-frequency, barcode)
-        heap = [(-freq, code) for code, freq in count.items()]
-        heapq.heapify(heap)
+        # Find the most common element
+        max_count, max_elem = max((count[x], x) for x in count)
         
-        result = []
-        while len(heap) >= 2:
-            # Pop the two most frequent barcodes
-            freq1, code1 = heapq.heappop(heap)
-            freq2, code2 = heapq.heappop(heap)
-            
-            # Add them to the result
-            result.extend([code1, code2])
-            
-            # If there are more of these barcodes, push them back to the heap
-            if freq1 + 1 < 0:
-                heapq.heappush(heap, (freq1 + 1, code1))
-            if freq2 + 1 < 0:
-                heapq.heappush(heap, (freq2 + 1, code2))
+        # Create the result array
+        result = [0] * n
         
-        # If there's one barcode left, add it to the result
-        if heap:
-            result.append(heap[0][1])
+        # Start filling the even indices with the most common element
+        idx = 0
+        for _ in range(max_count):
+            result[idx] = max_elem
+            idx += 2
+            if idx >= n:
+                idx = 1  # Switch to odd indices if we reach the end
+        
+        # Fill the remaining positions with other elements
+        for num in count:
+            if num != max_elem:
+                for _ in range(count[num]):
+                    if idx >= n:
+                        idx = 1
+                    result[idx] = num
+                    idx += 2
         
         return result
         
