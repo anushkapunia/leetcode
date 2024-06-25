@@ -1,23 +1,18 @@
 class Solution(object):
-    def carPooling(self, trip, capacity):
+    def carPooling(self, trips, capacity):
+        change = [0]*1001
         
-        picktrip = []
-        droptrip = []
-        for i in trip:
-            picktrip.append([i[0],i[1]])
-            droptrip.append([i[0],i[2]])
-        picktrip = sorted(picktrip, key = lambda x: x[1])
-        droptrip = sorted(droptrip, key = lambda x: x[1])
-        i=0
-        j=0
-        l = len(trip)
-        while i < l:
-            if picktrip[i][1] < droptrip[j][1]:
-                capacity -= picktrip[i][0]
-                i+=1
-            else:
-                capacity += droptrip[j][0]
-                j+=1
-            if capacity < 0:
+        for p , f ,t in trips:
+            change[f]+=p
+            change[t]-=p
+        
+        check = 0
+        for c in change:
+            check+=c
+            if check > capacity:
                 return False
-        return capacity>= 0
+            
+        return True
+            
+            
+        
