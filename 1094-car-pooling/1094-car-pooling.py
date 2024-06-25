@@ -1,20 +1,23 @@
 class Solution(object):
-    def carPooling(self, trips, capacity):
-      
-        changes = [0] * 1001  # Assuming max location is 1000
+    def carPooling(self, trip, capacity):
         
-        # Record passenger changes for each trip
-        for passengers, start, end in trips:
-            changes[start] += passengers
-            changes[end] -= passengers
-        
-        # Simulate the journey
-        current_passengers = 0
-        for change in changes:
-            current_passengers += change
-            if current_passengers > capacity:
+        picktrip = []
+        droptrip = []
+        for i in trip:
+            picktrip.append([i[0],i[1]])
+            droptrip.append([i[0],i[2]])
+        picktrip = sorted(picktrip, key = lambda x: x[1])
+        droptrip = sorted(droptrip, key = lambda x: x[1])
+        i=0
+        j=0
+        l = len(trip)
+        while i < l:
+            if picktrip[i][1] < droptrip[j][1]:
+                capacity -= picktrip[i][0]
+                i+=1
+            else:
+                capacity += droptrip[j][0]
+                j+=1
+            if capacity < 0:
                 return False
-        
-        return True
-        
-        
+        return capacity>= 0
