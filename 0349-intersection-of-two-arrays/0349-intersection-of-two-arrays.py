@@ -1,11 +1,5 @@
 class Solution(object):
     def intersection(self, nums1, nums2):
-        s = set()
-        for n in nums1:
-            for m in nums2:
-                if n == m:
-                    s.add(n)
-                
-        return s
-            
+        set1 = set(nums1)
+        return list(set(num for num in nums2 if num in set1))
         
