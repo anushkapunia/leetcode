@@ -6,18 +6,19 @@
 #         self.right = right
 class Solution(object):
     def findTarget(self, root, k):
-  
+        
         def inorder(node):
+            
             if not node:
                 return False
             
-            if k - node.val in seen:
+            if k-node.val in seen:
                 return True
             
             seen.add(node.val)
             
             return inorder(node.left) or inorder(node.right)
-        
+
         seen = set()
         return inorder(root)
         
