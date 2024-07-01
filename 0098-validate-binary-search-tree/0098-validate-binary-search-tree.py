@@ -6,17 +6,16 @@
 #         self.right = right
 class Solution(object):
     def isValidBST(self, root):
-        
-        stack = [(root, float("-inf"), float("inf"))]
-        while stack:
-            currentNode, minValue, maxValue = stack.pop()
-            if not currentNode:
-                continue
-
-            if currentNode.val <= minValue or currentNode.val >= maxValue:
+        def check(root , l = float('-inf') , h = float('inf')):
+            if not root:
+                return True
+            
+            if root.val <= l or root.val >= h:
                 return False
-                            
-            stack.append((currentNode.left, minValue, currentNode.val))
-            stack.append((currentNode.right, currentNode.val, maxValue))
-
-        return True
+            
+            return check(root.left  , l , root.val ) and check(root.right , root.val , h)
+        
+        return check(root )
+        
+        
+        
