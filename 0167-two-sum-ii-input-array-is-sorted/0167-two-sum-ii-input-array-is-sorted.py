@@ -1,22 +1,18 @@
 class Solution(object):
-    def twoSum(self, numbers, t):
-        seen = {}
-        for i , num in enumerate(numbers):
-            a = t - num
-            if a in seen:
-                return [seen[a]+1 , i+1]
+    def twoSum(self, numbers, target):
+    
+        left = 0
+        right = len(numbers) - 1
+        
+        while left < right:
+            current_sum = numbers[left] + numbers[right]
             
-            seen[num] = i
-            
-        return []
-      
+            if current_sum == target:
+                return [left + 1, right + 1]
+            elif current_sum < target:
+                left += 1
+            else:
+                right -= 1
         
-                
-        
-        
-        
-        
-        
-        
-        
+        return []  # If no solution is found
         
