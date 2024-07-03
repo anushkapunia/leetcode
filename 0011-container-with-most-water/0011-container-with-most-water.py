@@ -1,27 +1,21 @@
 class Solution(object):
     def maxArea(self, height):
         l = 0
-        r = len(height)-1
+        r = len(height) -1
         maxa = 0
-        
-        while l<r:
-            minht = min(height[l],height[r])
-            area = minht*(r-l)
-            maxa = max(area, maxa)
-            if height[l]<height[r]:
-                l+=1
+        a = 0
+        while l < r:
+            d = r - l
+            minh = min(height[l] , height[r])
+            a = d * minh
+            maxa = max(a , maxa)
+            
+            if height[l] > height[r]:
+                r = r-1
+                
             else:
-                r-=1
+                l = l+1
+                
+        return maxa
 
-            
-       
-            
-        return maxa     
-    
-            
-            
-            
-            
-            
-        
         
