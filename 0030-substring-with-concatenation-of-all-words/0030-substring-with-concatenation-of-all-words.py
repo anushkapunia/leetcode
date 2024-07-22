@@ -1,7 +1,34 @@
 class Solution(object):
-    def findSubstring(self, S, W):
+    def findSubstring(self, s, words):
     
-        if not W: return []
-        LS, M, N, C = len(S), len(W), len(W[0]), collections.Counter(W)
-        return [i for i in range(LS-M*N+1) if collections.Counter([S[a:a+N] for a in range(i,i+M*N,N)]) == C]
+		length = len(words[0])
+		word_count = Counter(words)
+		indexes = []
+
+		for i in range(length):
+			start = i
+			window = defaultdict(int)
+			words_used = 0
+
+			for j in range(i, len(s) - length + 1, length):
+				word = s[j:j + length]
+
+				if word not in word_count:
+					start = j + length
+					window = defaultdict(int)
+					words_used = 0
+					continue
+
+				words_used += 1
+				window[word] += 1
+
+				while window[word] > word_count[word]:
+					window[s[start:start + length]] -= 1
+					start += length
+					words_used -= 1
+
+				if words_used == len(words):
+					indexes.append(start)
+
+		return indexes
         
