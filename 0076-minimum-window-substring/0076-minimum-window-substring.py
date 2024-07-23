@@ -5,6 +5,9 @@ class Solution(object):
 
         if t in s:
             return t
+        
+        if len(t) > len(s):
+            return ""
 
         for letter in t:
             if letter in letterDict:
