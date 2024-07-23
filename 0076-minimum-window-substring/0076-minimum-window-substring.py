@@ -1,40 +1,51 @@
 class Solution(object):
     def minWindow(self, s, t):
-  
-        if not s or not t:
-            return ""
+     
+        letterDict = {}
 
         if t in s:
             return t
 
-        letter_dict = {}
         for letter in t:
-            letter_dict[letter] = letter_dict.get(letter, 0) + 1
+            if letter in letterDict:
+                letterDict[letter] += 1
+            else:
+                letterDict[letter] = 1
 
-        required = len(letter_dict)
-        formed = 0
-        window_counts = {}
+        currLen =  0
+        minLen, n = float("inf"), len(s)
         left = 0
-        min_len = float('inf')
-        result = ""
+        currLetterDict = {}
+        required = len(letterDict)
+        retLeft, retRight = 0, 0
+        count = 0
 
-        for right, char in enumerate(s):
-            if char in letter_dict:
-                window_counts[char] = window_counts.get(char, 0) + 1
-                if window_counts[char] == letter_dict[char]:
-                    formed += 1
+        for right in range(n):
+            letter = s[right]
 
-            while formed == required:
-                if right - left + 1 < min_len:
-                    min_len = right - left + 1
-                    result = s[left:right+1]
+            if letter in letterDict:
+                if letter in currLetterDict:
+                    currLetterDict[letter] += 1
+                else:
+                    currLetterDict[letter] = 1
 
-                left_char = s[left]
-                if left_char in letter_dict:
-                    window_counts[left_char] -= 1
-                    if window_counts[left_char] < letter_dict[left_char]:
-                        formed -= 1
+                if currLetterDict[letter] == letterDict[letter]:
+                    count += 1
+
+            while count == required:
+                # valid substring
+                currLen = right - left + 1
+                # update res
+                if currLen < minLen:
+                    minLen = currLen
+                    retLeft, retRight = left, right
+                
+                # update new curr letter letterDict
+                if s[left] in currLetterDict:
+                    currLetterDict[s[left]] -= 1
+                    if currLetterDict[s[left]] < letterDict[s[left]]:
+                        count -= 1
                 left += 1
 
-        return result
+        return s[retLeft:retRight+1] if minLen != float("inf") else ""
         
