@@ -36,6 +36,7 @@ class Solution(object):
                 if s[left] in cd:
                     cd[s[left]]-=1
                     if cd[s[left]] < l[s[left]]:
+                        
                          c-=1
                     
                 left+=1
