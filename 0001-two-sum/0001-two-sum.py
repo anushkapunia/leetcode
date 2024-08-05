@@ -1,19 +1,11 @@
 class Solution(object):
     def twoSum(self, nums, target):
-
-        numMap = {}
-        n = len(nums)
-
-        # Build the hash table
-        for i in range(n):
-            numMap[nums[i]] = i
-
-        # Find the complement
-        for i in range(n):
-            complement = target - nums[i]
-            if complement in numMap and numMap[complement] != i:
-                return [i, numMap[complement]]
-
+         
+        num_dict = {}
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in num_dict:
+                return [num_dict[complement], i]
+            num_dict[num] = i
         return []  # No solution found
-        
         
