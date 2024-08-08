@@ -1,23 +1,28 @@
 class Solution(object):
     def myPow(self, x, n):
-  
-        b = n
+ 
+        if n == 0:
+            return 1
         if x == 0:
             return 0
-        elif b == 0:
-            return 1
-        elif b < 0:
-            b = -b
+    
+    
+        if n < 0:
             x = 1 / x
-        
-        a = 1
-        while b > 0:
-            if b % 2 == 0:
-                x = x * x
-                b = b // 2
-            else:
-                b = b - 1
-                a = a * x
+            n = -n
+            
+        r = 1
+        while n > 0:
+            if n%2== 1:
+                r*=x
                 
-        return a
-        
+            x*=x
+            n = n // 2
+            
+        return r
+                
+            
+      
+
+  
+      
