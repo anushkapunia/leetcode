@@ -1,19 +1,22 @@
 class Solution(object):
     def myPow(self, x, n):
-  
         if n < 0:
-            x = 1 / x
+            x = 1/x
             n = -n
+
+        if n==0:
+            return 1
+        if n==1:
+            return x
         
-        # Base case
-        if n == 0:
-            return 1.0
+        h = self.myPow(x,n//2)
         
-        # Recursive case
-        half = self.myPow(x, n // 2)
-        
-        if n % 2 == 0:
-            return half * half
+        if n%2 == 0:
+            return h *h
         else:
-            return half * half * x
+            return h*h*x
+        
+        
+  
+        
         
