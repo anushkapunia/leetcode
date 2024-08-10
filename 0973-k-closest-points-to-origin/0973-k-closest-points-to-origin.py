@@ -1,19 +1,19 @@
 class Solution(object):
     def kClosest(self, points, k):
-   
-        if not points or k <= 0:
+        if not points or k<=0:
             return []
         
-        h = []
-        for x, y in points:
-            dist = x**2 + y**2
-            heapq.heappush(h, (dist, (x, y)))
+        mh = []
+        for i , (x,y) in enumerate(points):
+            d = x**2 + y**2
+            if len(mh) <k:
+                heappush(mh , (-d,i))
+            else:
+                heappushpop(mh, (-d,i))
+                
+        return [points[i] for _ , i in mh]
+
+                
+            
         
-        r = []
-        while k > 0 :
-            s, p = heapq.heappop(h)
-            r.append(list(p))
-            k -= 1
-        
-        return r
         
