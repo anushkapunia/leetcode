@@ -1,20 +1,16 @@
 class Solution(object):
     def combinationSum(self, candidates, target):
-   
-        def backtrack(start, target, path):
-            if target == 0:
-                result.append(path[:])
-                return
-            if target < 0:
-                return
-            
-            for i in range(start, len(candidates)):
-                path.append(candidates[i])
-                backtrack(i, target - candidates[i], path)
-                path.pop()
-        
-        result = []
-        candidates.sort()  # Sorting helps to avoid duplicate combinations
-        backtrack(0, target, [])
-        return result
+     
+        dp = [[] for _ in range(target + 1)]
+        dp[0].append([])
+
+        for i in range(1, target + 1):
+            for candidate in candidates:
+                if candidate <= i:
+                    for prev in dp[i - candidate]:
+                        temp = prev + [candidate]
+                        temp.sort()
+                        if temp not in dp[i]:
+                            dp[i].append(temp)
+        return dp[target]
         
