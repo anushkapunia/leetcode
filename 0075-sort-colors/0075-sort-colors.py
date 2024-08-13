@@ -1,21 +1,15 @@
 class Solution(object):
-    def sortColors(self, nums):
-
-        zeros = 0
-        ones = 0
-        n = len(nums)
-
-        for i in range(n):
-            if nums[i] == 0:
-                zeros += 1
-            elif nums[i] == 1:
-                ones += 1
-
-        for i in range(n):
-            if i < zeros:
-                nums[i] = 0
-            elif zeros <= i < zeros + ones:
-                nums[i] = 1
+    def sortColors(self, arr):
+        l , m , h = 0,0,len(arr)-1
+        while m <= h:
+            if arr[m] == 0:
+                arr[m] , arr[l] = arr[l] , arr[m]
+                m+=1
+                l+=1
+            elif arr[m] == 1:
+                m+=1
             else:
-                nums[i] = 2
-
+                arr[h] , arr[m] = arr[m] , arr[h]
+                h-=1
+            
+        
