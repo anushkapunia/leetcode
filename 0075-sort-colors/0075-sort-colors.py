@@ -1,11 +1,17 @@
 class Solution(object):
-    def sortColors(self, nums):
-
-        heapq.heapify(nums)  # Convert the list to a heap in-place
-        sorted_list = []
-        while nums:
-            sorted_list.append(heapq.heappop(nums))
+    def sortColors(self, arr):
+        l , m , h = 0, 0 , len(arr) -1
         
-        # Copy sorted elements back to the original list
-        for i in range(len(sorted_list)):
-            nums.append(sorted_list[i])
+        while m <= h:
+            if arr[m] == 0:
+                arr[m] , arr[l] = arr[l] , arr[m]
+                m+=1
+                l+=1
+            elif arr[m] == 1:
+                m+=1
+            else:
+                arr[h] , arr[m] = arr[m] , arr[h]
+                h-=1
+            
+        
+        
