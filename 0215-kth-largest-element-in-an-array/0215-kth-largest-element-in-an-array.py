@@ -1,12 +1,22 @@
 class Solution(object):
     def findKthLargest(self, nums, k):
-        h = []
-        for n in nums:
-            if len(h) < k:
-                heapq.heappush(h , n)
-            elif h[0] < n:
-                heapq.heappop(h)
-                heapq.heappush(h , n)
-                
-                
-        return h[0]
+       
+        largest = float('-inf')
+        for num in nums:
+            if num > largest:
+                largest = num
+        freq = {}
+        for num in nums:
+            diff = largest - num
+            if diff in freq:
+                freq[diff] += 1
+            else:
+                freq[diff] = 1
+        count = 0
+        diff = 0
+        while count < k:
+            count += freq.get(diff, 0)
+            diff += 1
+
+        return largest - diff + 1
+        
