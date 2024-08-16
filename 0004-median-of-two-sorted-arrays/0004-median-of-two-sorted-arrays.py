@@ -1,33 +1,31 @@
 class Solution(object):
-    def findMedianSortedArrays(self, n1, n2):
-        i , j = 0 , 0
-        m = len(n1)
-        n = len(n2)
-        a = []
+    def findMedianSortedArrays(self, nums1, nums2):
+  
+        if len(nums1) > len(nums2):
+            nums1, nums2 = nums2, nums1
+        m, n = len(nums1), len(nums2)
         
-        while i < m and j < n:
-            if n1[i] < n2[j]:
-                a.append(n1[i])
-                i+=1
+        low, high = 0, m
+        
+        while low <= high:
+            partitionX = (low + high) // 2
+            partitionY = (m + n + 1) // 2 - partitionX
+            
+            maxLeftX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]
+            minRightX = float('inf') if partitionX == m else nums1[partitionX]
+            
+            maxLeftY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]
+            minRightY = float('inf') if partitionY == n else nums2[partitionY]
+            
+            if maxLeftX <= minRightY and maxLeftY <= minRightX:
+                if (m + n) % 2 == 0:
+                    return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2.0
+                else:
+                    return max(maxLeftX, maxLeftY)
+            elif maxLeftX > minRightY:
+                high = partitionX - 1
             else:
-                a.append(n2[j])
-                j+=1
-                
-        while i < m:
-            a.append(n1[i])
-            i+=1
-            
-        while j < n:
-            a.append(n2[j])
-            j+=1
-            
-        l = len(a)
-        if l % 2 == 1:
-            i = l//2
-            return a[i]
-        else:
-            i = l//2
-            return (a[i] + a[i-1])/2.0
-                
-                
+                low = partitionX + 1
+        
+        raise ValueError("Input arrays are not sorted")
         
