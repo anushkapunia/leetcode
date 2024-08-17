@@ -1,6 +1,6 @@
-class Solution(object):
+class Solution:
     def divide(self, dividend, divisor):
-  
+        # Get absolute values
         divid = abs(dividend)
         div = abs(divisor)
         
@@ -19,4 +19,4 @@ class Solution(object):
             result = -result
         
         # Handle overflow
-        return max(-2**31, min(2**31-1 , result))
+        return min(2**31 - 1, max(-2**31, result)) 
