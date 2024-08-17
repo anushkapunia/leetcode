@@ -1,35 +1,28 @@
 class Solution(object):
     def divide(self, dividend, divisor):
-     
-        # Constants for 32-bit integer limits
-        INT_MAX = 2**31 - 1
-        INT_MIN = -2**31
-        
+      
         # Handle division by zero
         if divisor == 0:
-            return INT_MAX
+            return 2**31 - 1  # Return MAX_INT for division by zero
         
-        # Handle overflow cases
-        if dividend == INT_MIN and divisor == -1:
-            return INT_MAX
+        # Get absolute values
+        divid = abs(dividend)
+        div = abs(divisor)
         
-        # Determine the sign of the quotient
-        sign = -1 if (dividend < 0) ^ (divisor < 0) else 1
+        result = 0
         
-        # Convert to positive numbers
-        dividend = abs(dividend)
-        divisor = abs(divisor)
+        while divid >= div:
+            shift = 0
+            while divid >= (div << shift):
+                shift += 1
+            
+            result += (1 << (shift - 1))
+            divid -= div << (shift - 1)
         
-        quotient = 0
-        while dividend >= divisor:
-            temp = divisor
-            multiple = 1
-            while dividend >= (temp << 1):
-                temp <<= 1
-                multiple <<= 1
-            dividend -= temp
-            quotient += multiple
+        # Handle negative cases
+        if (dividend < 0 and divisor > 0) or (divisor < 0 and dividend > 0):
+            result = -result
         
-        # Apply the sign to the result
-        return min(max(sign * quotient, INT_MIN), INT_MAX)
+        # Handle overflow
+        return min(2**31 - 1, max(-2**31, result))
         
