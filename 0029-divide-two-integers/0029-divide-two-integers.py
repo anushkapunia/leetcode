@@ -1,9 +1,6 @@
 class Solution(object):
     def divide(self, dividend, divisor):
-      
-     
-        
-        # Get absolute values
+  
         divid = abs(dividend)
         div = abs(divisor)
         
@@ -18,9 +15,8 @@ class Solution(object):
             divid -= div << (shift - 1)
         
         # Handle negative cases
-        if (dividend < 0 and divisor > 0) or (divisor < 0 and dividend > 0):
+        if (dividend < 0) ^ (divisor < 0):
             result = -result
         
         # Handle overflow
         return min(2**31 - 1, max(-2**31, result))
-        
