@@ -19,4 +19,4 @@ class Solution:
             result = -result
         
         # Handle overflow
-        return min(2**31 - 1, max(-2**31, result)) 
+        return max(-2**31 ,min(2**31 -1 , result))
