@@ -1,9 +1,7 @@
 class Solution(object):
     def divide(self, dividend, divisor):
       
-        # Handle division by zero
-        if divisor == 0:
-            return 2**31 - 1  # Return MAX_INT for division by zero
+     
         
         # Get absolute values
         divid = abs(dividend)
