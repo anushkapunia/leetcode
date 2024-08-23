@@ -5,8 +5,8 @@
 #         self.next = next
 class Solution(object):
     def mergeTwoLists(self, list1, list2):
-        
-        temp = None
+        d = ListNode(-1)
+        temp = d
         
         if list1 == None:
             return list2
@@ -14,16 +14,28 @@ class Solution(object):
         if list2 == None:
             return list1
         
-        if list1.val <= list2.val :
+        while list1 != None and list2 != None:
+            if list1.val <= list2.val:
+                temp.next = list1
+                temp = list1
+                list1 = list1.next
+                
+            else:
+                temp.next = list2
+                temp = list2
+                list2 = list2.next
+          
+        while list1 != None :
+            temp.next = list1
             temp = list1
-            temp.next = self.mergeTwoLists(list1.next , list2)
+            list1 = list1.next
             
-        else:
+        while list2!= None:
+            temp.next = list2
             temp = list2
-            temp.next = self.mergeTwoLists(list1 , list2.next)
+            list2 = list2.next
             
-        return temp
-            
-        
-        
+        return d.next
+                
+                
         
