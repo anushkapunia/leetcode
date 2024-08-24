@@ -6,31 +6,31 @@
 class Solution(object):
     def isPalindrome(self, head):
 
-        if not head or not head.next:
+        
+        if head == None or head.next == None:
             return True
-        
-        # Step 1: Find the middle of the linked list
-        slow, fast = head, head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        
-        # Step 2: Reverse the second half of the list
-        prev = None
-        while slow:
-            next_node = slow.next
-            slow.next = prev
-            prev = slow
-            slow = next_node
-        
-        # Step 3: Compare the first half and the reversed second half
-        left, right = head, prev
-        while right:  # Compare till the end of the reversed second half
-            if left.val != right.val:
-                return False
-            left = left.next
-            right = right.next
-        
-        return True
 
+        s = head 
+        f = head
+        while f != None and f.next != None:
+            s = s.next
+            f = f.next.next
+            
+        p = None
+        while s != None:
+            n = s.next
+            s.next = p
+            p = s
+            s = n
+            
+        l , r = head , p
+        while r !=None:
+            if l.val != r.val:
+                return False
+            l = l.next
+            r = r.next
+            
+        return True
+            
+        
         
