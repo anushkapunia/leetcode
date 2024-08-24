@@ -1,16 +1,24 @@
 class Solution(object):
     def isValid(self, s):
-        b = { '(' : ')' , '{' : '}' , '[' : ']'}
-        h = ['(' , '[' , '{']
+       
+        bracket_map = {')': '(', '}': '{', ']': '['}
+        
+        # Stack to keep track of opening brackets
         stack = []
-        for a in s:
-            if a in h:
-                stack.append(a)
-            elif stack and a == b[stack[-1]]:
-                stack.pop()
+        
+        # Iterate over the string
+        for char in s:
+            if char in bracket_map:
+                # Pop the topmost element from the stack if it's not empty
+                # Otherwise, use a dummy value (e.g., '#') to avoid index errors
+                top_element = stack.pop() if stack else '#'
+                
+                # Check if the top element matches the corresponding opening bracket
+                if bracket_map[char] != top_element:
+                    return False
             else:
-                return False
+                # If it's an opening bracket, push it onto the stack
+                stack.append(char)
         
-        return stack == []
-        
-    
+        # If the stack is empty, all brackets were properly matched
+        return not stack
