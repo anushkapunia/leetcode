@@ -6,24 +6,14 @@
 #         self.right = right
 class Solution(object):
     def isValidBST(self, root):
-        s = []
-        l = []
-        c = root
-        while(True):
-            if c is not None:
-                s.append(c)
-                c = c.left
-            elif len(s) > 0:
-                c = s.pop()
-                l.append(c.val)
-                c = c.right
-            else:
-                break
-        for i in range(1,len(l)):
-            if l[i] <= l[i-1]:
+   
+        def validate(node, low, high):
+            if not node:
+                return True
+            if node.val <= low or node.val >= high:
                 return False
-            
-        return True
+            return validate(node.left, low, node.val) and validate(node.right, node.val, high)
         
-                
+        return validate(root, float('-inf'), float('inf'))
+
         
