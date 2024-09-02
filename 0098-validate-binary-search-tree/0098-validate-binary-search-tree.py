@@ -6,16 +6,24 @@
 #         self.right = right
 class Solution(object):
     def isValidBST(self, root):
-        def check(root , l = float('-inf') , h = float('inf')):
-            if not root:
-                return True
-            
-            if root.val <= l or root.val >= h:
+        s = []
+        l = []
+        c = root
+        while(True):
+            if c is not None:
+                s.append(c)
+                c = c.left
+            elif len(s) > 0:
+                c = s.pop()
+                l.append(c.val)
+                c = c.right
+            else:
+                break
+        for i in range(1,len(l)):
+            if l[i] <= l[i-1]:
                 return False
             
-            return check(root.left  , l , root.val ) and check(root.right , root.val , h)
+        return True
         
-        return check(root )
-        
-        
+                
         
