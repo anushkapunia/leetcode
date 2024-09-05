@@ -6,14 +6,22 @@
 #         self.right = right
 class Solution(object):
     def isValidBST(self, root):
-   
-        def validate(node, low, high):
-            if not node:
-                return True
-            if node.val <= low or node.val >= high:
-                return False
-            return validate(node.left, low, node.val) and validate(node.right, node.val, high)
+        s = []
+        p = float('-inf')
+        c = root
         
-        return validate(root, float('-inf'), float('inf'))
-
+        while c or s:
+            while c :
+                s.append(c)
+                c = c.left
+            c = s.pop()
+            if c.val <= p:
+                return False
+            
+            p = c.val
+            c = c.right
+            
+        return True
+            
+        
         
