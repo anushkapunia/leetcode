@@ -5,39 +5,29 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def deleteNode(self, root, key):
-
-        if not root:
-            return root
-
-        # Search for the node to delete
-        if key < root.val:
-            root.left = self.deleteNode(root.left, key)
-        elif key > root.val:
-            root.right = self.deleteNode(root.right, key)
-        else:
-            # Node to be deleted is found
-            
-            # Case 1: Node with only one child or no child
-            if not root.left:
-                return root.right
-            elif not root.right:
-                return root.left
-
-            # Case 2: Node with two children
-            # Find the in-order successor (smallest in the right subtree)
-            min_larger_node = self.findMin(root.right)
-            root.val = min_larger_node.val
-
-            # Delete the in-order successor
-            root.right = self.deleteNode(root.right, min_larger_node.val)
-
-        return root
-
-    def findMin(self, node):
-        current = node
-        while current.left:
-            current = current.left
-        return current
-
+    def deleteNode(self, r, k):
+        if not r:
+            return r
         
+        if k < r.val:
+            r.left = self.deleteNode(r.left , k)
+        elif k > r.val:
+            r.right = self.deleteNode(r.right , k)
+        else:
+            if r.left is None:
+                return r.right
+            if r.right is None:
+                return r.left
+            
+            m = self.find(r.right )
+            r.val = m.val
+            r.right = self.deleteNode(r.right , m.val)
+            
+        return r
+
+            
+    
+    def find(self , c):
+        while c.left:
+            c = c.left
+        return c
