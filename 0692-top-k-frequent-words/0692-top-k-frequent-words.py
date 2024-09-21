@@ -1,23 +1,17 @@
 class Solution(object):
     def topKFrequent(self, words, k):
         d = Counter(words)
-        h = []
-        for a , b in d.items():
-            heapq.heappush(h , (-b,a))
-            
-    
+        l = []
+        for w,f in d.items():
+            heapq.heappush(l, (-f,w))
         
-        r = []
-        while k>0:
-            a, b = heapq.heappop(h)
-            r.append(b)
-            k = k-1
+        a = []        
+        while k > 0:
+            f , w = heapq.heappop(l)
+            a.append(w)
+            k-=1
             
-        return r
-                
+        return a
             
             
-        
-            
-
         
