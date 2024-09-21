@@ -1,8 +1,19 @@
 class Solution(object):
     def topKFrequent(self, nums, k):
-        # Count the frequency of each number
-        count = Counter(nums)
-        
-        # Sort the items by frequency in descending order and return the k most common
-        return [item[0] for item in count.most_common(k)]
+        d = Counter(nums)
+        l = []
+        for w , f in d.items():
+            heapq.heappush(l , (f , w))
+            if len(l) >k :
+                heapq.heappop(l)
+                
+        a = []
+        while k > 0:
+            f,w = heapq.heappop(l)
+            a.append(w)
+            k-=1
+    
+        return a
+                
+            
         
