@@ -7,12 +7,20 @@
 class Solution(object):
     def invertTree(self, root):
         if root is None :
-            return None
+            return root
+        q = deque()
+        q.appendleft(root)
         
-        root.left = self.invertTree(root.left)
-        root.right = self.invertTree(root.right)
-        
-        root.right , root.left = root.left , root.right
-        
+        while q:
+            c = q.pop()
+            c.left , c.right = c.right , c.left
+            
+            if c.left:
+                q.append(c.left)
+            if c.right:
+                q.append(c.right)
+                
         return root
+    
+            
             
