@@ -1,16 +1,14 @@
 class Solution(object):
     def reverse(self, x):
-        t = x
-        x = abs(x)
-        rev = 0
-        while x> 0:
-            n = x%10
-            x = x//10
-            rev = (rev*10)+n
-            
-        if t < 0 and  -2**31 <= rev <= 2**31-1:
-            return -rev
-        elif -2**31 <= rev <= 2**31-1:
-            return rev
+        s = str(x)
         
-        return 0
+        if x<0:
+            a = '-' + (s[ :0:-1])
+        else:
+            a = s[ : :-1]
+        i = int(a)
+        if -2**31 < i < 2**31-1:
+            return i
+        else:
+            return 0
+   
