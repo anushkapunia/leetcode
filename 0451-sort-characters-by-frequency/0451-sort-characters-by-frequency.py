@@ -1,7 +1,5 @@
 class Solution(object):
     def frequencySort(self, s):
-        c = Counter(s)
-        
-        return ''.join(char * freq for char , freq in c.most_common())
-        
-        
+        t = Counter(s)
+        a = sorted(t.items() , key = lambda x:-x[1])
+        return ''.join(c*f for c,f in a)
