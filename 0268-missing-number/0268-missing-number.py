@@ -1,13 +1,8 @@
 class Solution(object):
     def missingNumber(self, nums):
+        s = sum(nums)
         n = len(nums)
-        x2 = 0
-        x1 = 0
-        for i in range(n):
-            x2 = x2 ^ nums[i]
-            x1 = x1^ (i+1)
+        s2 = (n*(n+1))//2
         
-        
-        return x1^x2
-        
+        return s2-s
         
