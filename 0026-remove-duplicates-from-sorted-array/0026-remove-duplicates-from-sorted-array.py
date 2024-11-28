@@ -1,16 +1,13 @@
 class Solution(object):
     def removeDuplicates(self, nums):
-        l = []
-        for n in nums:
-            if n in l:
-                continue
-            else:
-                l.append(n)
-                
-        for i in range(len(l)):
-            nums[i] = l[i]
+        l = list(set(nums))
+        s = sorted(l)
+        
+        for i in range(len(s)):
+            nums[i] = s[i]
             
-        return len(l)
+        
+        return len(s)
             
                 
         
