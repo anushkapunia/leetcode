@@ -1,18 +1,20 @@
 class Solution(object):
     def intersect(self, nums1, nums2):
-        n = len(nums1)
-        m = len(nums2)
-        if (n > m):
-            v = [0]*n
-        else:
-            v = [0]*m
-        a = []    
-        for i in range(n):
-            for j in range(m):
-                if (nums1[i] == nums2[j] and v[j] == 0):
-                    a.append(nums1[i])
-                    v[j] = 1
-                    break
-                
-        return a
+        if nums1 > nums2 :
+            nums2 , nums1 = nums1 , nums2
+            
+        c = {}
+        
+        for n in nums1:
+            c[n] = c.get(n,0) +1
+            
+        r = []    
+        for n in nums2:
+            if n in c:
+                r.append(n)
+                c[n]-=1
+                if c[n] == 0:
+                    del c[n]
                     
+        return r
+            
