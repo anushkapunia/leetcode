@@ -1,25 +1,18 @@
 class Solution(object):
-    def generateRow(self, row):
+    def generate(self, numRows):
         
-        ans = 1
+        f = []
+        for i in range(1,numRows+1):
+            t = [1]
+            r = 1
+            for c in range(1,i):
+                
+                r*=i - c
+                r//=c
+                t.append(r)
+            f.append(t)
+                
+    
+        return f
+                
         
-        # Inserting the 1st element
-        ansRow = [1] 
-
-        # Calculate the rest of the elements
-        for col in range(1, row):
-            ans = ans * (row - col)
-            ans = ans // col
-            ansRow.append(ans)
-
-        return ansRow
-
-    """ Function to generate Pascal's
-    Triangle up to n rows"""
-    def generate(self, n):
-        pascalTriangle = []
-        for row in range(1, n + 1):
-            pascalTriangle.append(self.generateRow(row))
-
-        # Return the Pascal's Triangle
-        return pascalTriangle
